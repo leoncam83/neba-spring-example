@@ -14,31 +14,17 @@
             http://www.springframework.org/schema/osgi
             http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
-	<context:component-scan base-package="com.ttn.aem.osgispringhelloworld.controllers"></context:component-scan>
+	<context:component-scan base-package="com.ttn.aem.osgispringhelloworld.controllers" />
 
-	<mvc:annotation-driven />
-
-	<bean id="gsonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
-
-	<bean id="handlerAdapter"
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-
-		<property name="messageConverters">
-			<list>
-				<ref bean="gsonHttpMessageConverter" />
-				<bean
-					class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
-				<bean
-					class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
-				<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
-				<bean
-					class="org.springframework.http.converter.StringHttpMessageConverter" />
-			</list>
-		</property>
-	</bean>
-	
-	<osgi:service ref="gsonHttpMessageConverter"></osgi:service>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean id="gsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+            <bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+            <bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
 	<bean id="helloWorldService"
 		class="com.ttn.aem.osgispringhelloworld.services.impls.HelloWorldServiceImpl" />

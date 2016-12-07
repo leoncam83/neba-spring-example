@@ -11,9 +11,6 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<crx.url>http://localhost:8080/system/console/install</crx.url>
-		<crx.user>admin</crx.user>
-		<crx.password>admin</crx.password>
 		<org.apache.felix.org.osgi.core>1.4.0</org.apache.felix.org.osgi.core>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j>1.7.21</slf4j>
@@ -47,7 +44,6 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<!-- <Require-Bundle>com.fasterxml.jackson.core.jackson-core; bundle-version="[2, 3)"; resolution:=optional, com.fasterxml.jackson.core.jackson-databind; bundle-version="[2, 3)"; resolution:=optional, com.fasterxml.jackson.core.jackson-annotations; bundle-version="[2, 3)"; resolution:=optional</Require-Bundle> -->
 						<Bundle-SymbolicName>${pom.groupId}.${pom.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${pom.artifactId}</Bundle-Name>
 						<Bundle-Version>${pom.version}</Bundle-Version>
@@ -55,36 +51,16 @@
 						<Bundle-Activator>com.ttn.aem.osgispringhelloworld.activators.AppActivator</Bundle-Activator>
 						<Import-Package>
 							!sun.*,
-							com.fasterxml.jackson.core;version="2.0.2",
+							<!-- org.springframework.context, -->
 							*
 						</Import-Package>
 						<Export-Package>
 							com.bw.osgi.provider.able,
 							com.bw.osgi.provider.impl,
-							com.ttn.aem.osgispringhelloworld.services,
+							com.ttn.aem.osgispringhelloworld.services
 						</Export-Package>
-						<!-- <Embed-Dependency>jackson-databind,jackson-core,jackson-annotations,gson</Embed-Dependency>
-						<Embed-Directory>lib</Embed-Directory> -->
 					</instructions>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.sling</groupId>
-				<artifactId>maven-sling-plugin</artifactId>
-				<version>2.1.8</version>
-				<executions>
-					<execution>
-						<id>install-bundle</id>
-						<goals>
-							<goal>install</goal>
-						</goals>
-						<configuration>
-							<slingUrl>${crx.url}</slingUrl>
-							<user>${crx.user}</user>
-							<password>${crx.password}</password>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
@@ -161,25 +137,5 @@
 			<version>4.1.0</version>
 		</dependency>
 		<!-- neba ends -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.8.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>2.8.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<version>2.8.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.0</version>
-		</dependency>
 	</dependencies>
 </project>
