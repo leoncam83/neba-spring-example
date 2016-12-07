@@ -16,9 +16,32 @@
 
 	<context:component-scan base-package="com.ttn.aem.osgispringhelloworld.controllers"></context:component-scan>
 
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven />
 
-	<bean id="helloWorldService" class="com.ttn.aem.osgispringhelloworld.services.impls.HelloWorldServiceImpl" />
+	<bean id="gsonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+
+	<bean id="handlerAdapter"
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+
+		<property name="messageConverters">
+			<list>
+				<ref bean="gsonHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+				<bean
+					class="org.springframework.http.converter.StringHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	
+	<osgi:service ref="gsonHttpMessageConverter"></osgi:service>
+
+	<bean id="helloWorldService"
+		class="com.ttn.aem.osgispringhelloworld.services.impls.HelloWorldServiceImpl" />
 
 	<osgi:service id="osgiHelloWorldService" ref="helloWorldService"
 		interface="com.ttn.aem.osgispringhelloworld.services.HelloWorldService" />
